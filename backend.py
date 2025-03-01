@@ -7,7 +7,7 @@ app = Flask(__name__)
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="yourpassword",
+    password="",
     database="car_rental"
 )
 cursor = conn.cursor(dictionary=True)
@@ -49,6 +49,16 @@ def complete_rental(rental_id):
     cursor.execute("UPDATE Rentals SET status = 'Completed' WHERE rental_id = %s", (rental_id,))
     conn.commit()
     return jsonify({"message": "Rental completed"})
+
+@app.route('/')
+def home():
+    return "Welcome to the Car Rental Management System API!"
+
+from flask import send_from_directory
+
+@app.route('/')
+def serve_frontend():
+    return send_from_directory('../frontend', 'index.html')
 
 
 if __name__ == '__main__':

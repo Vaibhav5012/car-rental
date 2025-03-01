@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
 import mysql.connector
 
 app = Flask(__name__)
@@ -51,17 +51,8 @@ def complete_rental(rental_id):
     return jsonify({"message": "Rental completed"})
 
 @app.route('/')
-def home():
-    return "Welcome to the Car Rental Management System API!"
-
-from flask import send_from_directory
-
-@app.route('/')
 def serve_frontend():
-    return send_from_directory('../frontend', 'index.html')
-
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-# Let me know if you’d like to add more routes, authentication, or any enhancements! 🚀
